@@ -155,8 +155,6 @@ Elastic Beanstalk requires an IAM Role (Instance Profile) to grant EC2 instances
    * Change **Health check path** from `/` to `/health`. Click **Save**.
    * Skip the remaining configurations by clicking **Next** until the final screen (Step 6 - Review), click **Submit** to initialize the environment.
 
-![EB Application and Environment](/images/5-Workshop/5.5-Application-Messaging/beanstalk_environments.png)
-
 ---
 
 #### 3. Deploy Beanstalk Worker (Web Server Environment)

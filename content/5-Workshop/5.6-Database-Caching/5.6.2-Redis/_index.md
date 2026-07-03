@@ -42,8 +42,12 @@ In this section, we will create a temporary cache cluster using **Amazon ElastiC
 
    ![Redis Cluster Name](/images/5-Workshop/5.6-Database-Caching/redis_cluster_name.png)
 
-   * **Node type**: Select ```cache.t3.micro```.
+   * **Node type**: Select ```cache.t3.medium```.
    * **Number of replicas**: Enter ```1```.
+
+   > [!WARNING]
+   > **COST OPTIMIZATION FOR TESTING/WORKSHOP**
+   > For testing or workshops, you should select `cache.t3.micro` and set **Number of replicas** to `0` to save costs. For production environments, you should choose `cache.t3.medium` or higher with at least 1 replica.
 
    ![Redis Node Type](/images/5-Workshop/5.6-Database-Caching/redis_node_type.png)
 

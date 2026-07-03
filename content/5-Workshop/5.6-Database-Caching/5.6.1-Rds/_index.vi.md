@@ -57,6 +57,10 @@ Trong phần này, chúng ta sẽ cấu hình cơ sở dữ liệu quan hệ **A
 
    * **Instance configuration**: Chọn loại cấu hình máy chủ phù hợp với nhu cầu.
 
+   > [!WARNING]
+   > **LƯU Ý VỀ CHI PHÍ (KHI TEST/WORKSHOP)**
+   > Khi chạy test hoặc làm đồ án/workshop, bạn nên chọn cấu hình `db.t3.micro` hoặc `db.t3.small` để tiết kiệm chi phí. Khi triển khai trên môi trường Production, bạn nên chọn từ cấu hình `db.t3.medium` trở lên.
+
    ![RDS Instance Class](/images/5-Workshop/5.6-Database-Caching/rds_instance_class.png)
 
    * **Connectivity**:

@@ -17,7 +17,7 @@ pre: " <b> 1.11. </b> "
 | 2 | - Completed deployment of Backend and Worker to **Elastic Beanstalk** and Frontend to **S3** <br> - Successfully set up automated CI/CD pipeline via **CodePipeline** | 06/29/2026 | 06/29/2026 | |
 | 3 | - Wrote the Project Proposal detailing the architecture and deployment roadmap | 06/30/2026 | 06/30/2026 | |
 | 4 | - Drafted the End-to-End guide documentation | 07/01/2026 | 07/01/2026 | |
-| 5 | | 07/02/2026 | 07/02/2026 | |
+| 5 | - Finalize missing parts and submit to the system | 07/02/2026 | 07/02/2026 | |
 | 6 | | 07/03/2026 | 07/03/2026 | |
 
 ### Week 11 Achievements:

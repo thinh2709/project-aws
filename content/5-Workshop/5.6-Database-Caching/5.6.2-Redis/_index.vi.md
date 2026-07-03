@@ -42,8 +42,12 @@ Trong phần này, chúng ta sẽ tạo cache lưu trữ dữ liệu tạm thờ
 
    ![Redis Cluster Name](/images/5-Workshop/5.6-Database-Caching/redis_cluster_name.png)
 
-   * **Node type**: Chọn node nhỏ như ```cache.t3.micro```.
+   * **Node type**: Chọn node ```cache.t3.medium```.
    * **Number of replicas**: Nhập ```1```.
+
+   > [!WARNING]
+   > **LƯU Ý VỀ CHI PHÍ (KHI TEST/WORKSHOP)**
+   > Khi chạy test hoặc làm đồ án/workshop, bạn nên chọn cấu hình `cache.t3.micro` và đặt **Number of replicas** là `0` để tiết kiệm chi phí. Khi triển khai trên môi trường Production, bạn nên chọn từ cấu hình `cache.t3.medium` trở lên và có ít nhất 1 replica.
 
    ![Redis Node Type](/images/5-Workshop/5.6-Database-Caching/redis_node_type.png)
 

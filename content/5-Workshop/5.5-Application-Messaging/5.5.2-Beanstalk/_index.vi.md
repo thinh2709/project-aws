@@ -155,8 +155,6 @@ Elastic Beanstalk cần một IAM Role (Instance Profile) để cấp quyền ch
    * Sửa **Health check path** từ `/` thành `/health`. Click **Save**.
    * Bỏ qua các cấu hình còn lại bằng cách click **Next** đến màn hình cuối cùng (Step 6 - Review), click **Submit** để khởi tạo môi trường.
 
-![EB Application and Environment](/images/5-Workshop/5.5-Application-Messaging/beanstalk_environments.png)
-
 ---
 
 #### 3. Triển khai Beanstalk Worker (Web Server Environment)

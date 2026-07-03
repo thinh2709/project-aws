@@ -69,12 +69,12 @@ The system is deployed in a custom VPC with isolated Public and Private subnets 
 | Category | AWS Service | Selection Rationale & Configuration |
 | :--- | :--- | :--- |
 | **Compute** | Elastic Beanstalk | Deploys and manages two isolated environments: Backend API and SQS processing Worker. |
-| **Compute** | EC2 Instances | Runs Amazon Linux 2023, Node.js 24 runtime, utilizing `t3.micro` instance types. |
+| **Compute** | EC2 Instances | Runs Amazon Linux 2023, Node.js 20 runtime, utilizing `t3.medium` instance types. |
 | **Compute** | Auto Scaling Group | Scales between a minimum of 2 and a maximum of 4 instances. Scale-out is triggered when average CPU utilization exceeds 70% for 3 minutes (for Backend API) or when SQS message backlog increases (for Worker). |
 | **Frontend** | Amazon S3 | Serves the HTML, CSS, and JS assets using S3 Static Website Hosting for cost-effective content delivery. |
-| **Database** | RDS PostgreSQL | Runs PostgreSQL version 18.3, instance class `db.t3.small`, 20GB gp3 storage, KMS-encrypted, configured with Multi-AZ for failover. |
+| **Database** | RDS PostgreSQL | Runs PostgreSQL version 18.3, instance class `db.t3.medium`, 20GB gp3 storage, KMS-encrypted, configured with Multi-AZ for failover. |
 | **Database Proxy**| RDS Proxy | Performs connection pooling to handle connections efficiently and protect the database database instance. |
-| **Cache** | ElastiCache Redis | 2-node cluster of `cache.t3.micro` instances (1 Primary, 1 Replica) running Redis 7.0.7 for session store and event data caching. |
+| **Cache** | ElastiCache Redis | 2-node cluster of `cache.t3.medium` instances (1 Primary, 1 Replica) running Redis 7.0.7 for session store and event data caching. |
 | **Messaging** | SQS FIFO | Managed queues: `booking-queue.fifo` for processing purchases sequentially, with `checkout-dlq.fifo` (Dead Letter Queue) to capture exceptions. |
 | **Email & Alerts** | SNS & SES | **SES** delivers electronic tickets. **SNS** sends operational alerts and infrastructure notifications to administrators. |
 | **Security** | IAM, Secrets Manager, KMS | **IAM Roles** configured with Least Privilege principle, no hard-coded access keys. Restricted public access via Private Subnets. **Cognito** for identities; **KMS** for data encryption. |
@@ -91,7 +91,7 @@ The project is divided into 2 specific phases over a 2-week period:
 2.  **App Integration, Deployment & Monitoring Automation (Week 2):** Deploy Backend API and Worker applications to Elastic Beanstalk, configure environment variables for DB/Redis/SQS connections, and set up Amazon S3 static web hosting. Construct CodePipeline CI/CD and configure 10 CloudWatch Alarms with SNS notifications.
 
 #### Prerequisites
-*   **Resources & Tools:** AWS Account with specific Administrator privileges for the services used, configured AWS CLI, Node.js 24.x, and Git.
+*   **Resources & Tools:** AWS Account with specific Administrator privileges for the services used, configured AWS CLI, Node.js 20.x, and Git.
 *   **Basic Knowledge:** VPC Networking (Subnets, NAT Gateway, Security Groups), Elastic Beanstalk, RDS PostgreSQL, SQS/SNS, and IAM Roles & Policies.
 
 
@@ -113,27 +113,42 @@ The project is divided into 2 specific phases over a 2-week period:
 ---
 
 ### 6. Budget Estimation
-This estimate is based on the [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=55c11e259b0f9e28ba8a407449988fd53d95b250) configured for the Ticket-App.
+This estimate is based on the [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=76842694b378946724ffec96459bc5965f833780) configured for the Ticket-App as guided in this workshop.
 
-#### Infrastructure Costs (Staging/Production Environment)
+#### 6.1. Workshop / Testing Environment
 
 | No. | AWS Service | Configuration Details | Monthly Cost |
 | :--- | :--- | :--- | :--- |
 | 1 | Elastic Beanstalk (EC2 + ALB) | 4 instances `t3.micro`, 2 Application Load Balancers | ~ $55.15 |
-| 2 | RDS PostgreSQL | `db.t3.small` Multi-AZ, 20GB gp3 (Utilization 30%) | ~ $60.52 |
+| 2 | RDS PostgreSQL | `db.t3.small` Multi-AZ, 20GB gp3, RDS Proxy | ~ $60.52 |
 | 3 | ElastiCache Redis | 2-node cluster of `cache.t3.micro` | ~ $24.82 |
 | 4 | NAT Gateways | 2 NAT Gateways operating across 2 Availability Zones | ~ $66.15 |
 | 5 | S3 & CloudFront | 20GB Standard Storage, CloudFront Free Tier | ~ $0.53 |
 | 6 | API Gateway | 1 million requests/month | ~ $1.00 |
 | 7 | AWS Cognito | Free tier up to 10,000 Monthly Active Users (MAUs) | $0.00 |
 | 8 | CI/CD (CodePipeline & CodeBuild) | 2 pipelines, 1 build/month | ~ $3.50 |
-| 9 | CloudWatch & Secrets Manager & SES | Log storage, 1 secret, 5000 emails/month | ~ $5.99 |
-| **Total** | **Estimated Monthly Total** | | **~ $217.67** |
+| 9 | CloudWatch & Secrets Manager & SES | Log storage, 1 secret, 5000 emails/month | ~ $20.99 |
+| **Total** | **Estimated Monthly Total** | | **~ $232.67** |
 
 *Note:* The cloud infrastructure cost can be trimmed to **under $100.00/month** in development environments by:
 *   Removing NAT Gateways and keeping resources in Public Subnets (saves ~$66.15/month), or running only 1 NAT Gateway instead of 2 (saves ~$33.00/month).
 *   Switching RDS to Single-AZ instead of Multi-AZ (saves ~$30.00/month).
 *   Reducing EC2 instances to 1 per tier and running Redis as a single node when load testing is not active (saves ~$28.00/month).
+
+#### 6.2. Production Deployment (SaaS Model)
+
+| No. | AWS Service | Configuration Details | Monthly Cost |
+| :--- | :--- | :--- | :--- |
+| 1 | Elastic Beanstalk (EC2 + ALB) | Auto-scaling 4 instances `t3.medium`, 2 Application Load Balancers | ~ $93.40 |
+| 2 | RDS PostgreSQL | `db.t3.medium` Multi-AZ, 20GB gp2, RDS Proxy | ~ $58.26 |
+| 3 | ElastiCache Redis | 1 node of `cache.t3.medium` | ~ $49.64 |
+| 4 | NAT Gateways | 2 NAT Gateways operating across 2 Availability Zones | ~ $66.15 |
+| 5 | S3 & CloudFront | 20GB Standard Storage, CloudFront Free Tier | ~ $0.53 |
+| 6 | API Gateway | 1 million requests/month | ~ $1.00 |
+| 7 | AWS Cognito | Free tier up to 10,000 Monthly Active Users (MAUs) | $0.00 |
+| 8 | CI/CD (CodePipeline & CodeBuild) | 2 pipelines, 1 build/month | ~ $3.50 |
+| 9 | CloudWatch & Secrets Manager & SES | Log storage, 1 secret, 5000 emails/month | ~ $20.99 |
+| **Total** | **Estimated Monthly Total** | | **~ $293.47** |
 
 ---
 

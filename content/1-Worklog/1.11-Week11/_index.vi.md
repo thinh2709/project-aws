@@ -17,7 +17,7 @@ pre: " <b> 1.11. </b> "
 | 2 | - Hoàn thành triển khai Backend, Worker lên **Elastic Beanstalk** và Frontend lên **S3** <br> - Thiết lập thành công luồng CI/CD tự động qua **CodePipeline** | 29/06/2026 | 29/06/2026 | |
 | 3 | - Viết bản đề xuất dự án (Project Proposal) chi tiết hóa kiến trúc và lộ trình triển khai | 30/06/2026 | 30/06/2026 | |
 | 4 | - Soạn thảo tài liệu hướng dẫn End-to-End | 01/07/2026 | 01/07/2026 | |
-| 5 | | 02/07/2026 | 02/07/2026 | |
+| 5 | - Hoàn thiện các phần còn thiếu và nộp lên hệ thống | 02/07/2026 | 02/07/2026 | |
 | 6 | | 03/07/2026 | 03/07/2026 | |
 
 ### Kết quả đạt được tuần 11:

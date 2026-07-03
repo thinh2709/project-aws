@@ -57,6 +57,10 @@ For security, the database instance only accepts internal connections from Priva
 
    * **Instance configuration**: Select an appropriate instance class for your needs.
 
+   > [!WARNING]
+   > **COST OPTIMIZATION FOR TESTING/WORKSHOP**
+   > For testing or workshops, you should select `db.t3.micro` or `db.t3.small` to save costs. For production environments, you should choose `db.t3.medium` or higher.
+
    ![RDS Instance Class](/images/5-Workshop/5.6-Database-Caching/rds_instance_class.png)
 
    * **Connectivity**:
