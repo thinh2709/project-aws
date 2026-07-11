@@ -12,6 +12,22 @@ After the system has been fully deployed via the CI/CD pipeline, the next step i
 
 In this lab, we will perform end-to-end testing following both the user flow and the system flow.
 
+<div style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); padding: 25px; border-radius: 12px; margin: 25px 0; color: white; box-shadow: 0 10px 20px rgba(0,0,0,0.15); border-left: 5px solid #00c6ff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+  <div style="flex: 1; min-width: 280px; margin-right: 20px;">
+    <h4 style="color: #ffffff !important; margin-top: 0; margin-bottom: 10px; font-weight: 800; font-size: 1.3rem; display: flex; align-items: center; gap: 8px; border: none; padding: 0; letter-spacing: 1px;">
+      <span>🎥</span> SYSTEM DEMO VIDEO
+    </h4>
+    <p style="margin: 0; font-size: 0.95rem; opacity: 0.9; line-height: 1.5; color: white;">
+      Watch the live demo of the user and admin interface flows, showcasing the complete booking experience and management system.
+    </p>
+  </div>
+  <div style="margin-top: 15px; margin-bottom: 15px;">
+    <a href="https://drive.google.com/drive/folders/1h8qYPxYnWJFA6rm8JlsLANiK2xKfqR0s?usp=sharing" target="_blank" style="display: inline-block; background-color: #00c6ff; color: #1e3c72; padding: 12px 24px; border-radius: 8px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease; text-transform: uppercase; font-size: 0.9rem;">
+      Xem Demo Video ➜
+    </a>
+  </div>
+</div>
+
 ---
 
 #### 1. Check Metrics & Message Queue (SQS)

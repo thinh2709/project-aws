@@ -303,8 +303,8 @@ cd Project-FCAJ
 In this workshop, you can choose one of the following two methods to build your network and server infrastructure:
 
 *   **Option A (Recommended - Fast): Automate deployment using AWS CloudFormation**
-    *   The infrastructure will be automatically initialized.
-    *   Chapters **5.3 to 5.7** will serve as guides for you to **Verify and Validate** the created resources rather than recreating them.
+    *   The entire system infrastructure will be automatically initialized from A to Z.
+    *   All chapters from **5.3 to 5.8** will serve as guides for you to **Verify and Validate** the automatically created resources rather than manually configuring them.
 *   **Option B: Manually configure step-by-step (Manual)**
     *   You will **skip** Step 4 (running CloudFormation) below.
     *   Starting from Chapter **5.3**, you will manually follow the instructions on the AWS Console to build the system from scratch.
@@ -313,31 +313,44 @@ In this workshop, you can choose one of the following two methods to build your 
 
 #### Instructions for Option A: Automatic Deployment using CloudFormation
 
-To prepare the environment for the workshop, we deploy the following CloudFormation template (click link): [TicketAppStack](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=ticket-app-stack&templateURL=https://fcaj-ticketing-templates.s3.amazonaws.com/template-cloudformation.yaml). Leave all default options.
+To prepare the environment for the workshop, we deploy the following CloudFormation template:
+
+<div style="background-color: #f8f9fa; border: 1px solid #e9ecef; border-left: 5px solid #ff9900; padding: 20px; border-radius: 8px; margin: 20px 0; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+  <div style="font-weight: 700; color: #232f3e; font-size: 1.1rem; line-height: 24px;">
+    <img src="https://img.icons8.com/color/48/amazon-web-services.png" style="width: 24px !important; height: 24px !important; margin: 0 8px 0 0 !important; display: inline-block !important; vertical-align: middle !important;" alt="AWS"/>
+    <span style="vertical-align: middle !important;">Quick Deploy with AWS CloudFormation</span>
+    <span style="font-size: 0.8rem; background-color: #e6f4ea; color: #137333; padding: 4px 8px; border-radius: 4px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; vertical-align: middle !important; margin-left: 10px; border: none;">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      Verified & Tested in Real Environment
+    </span>
+  </div>
+  <p style="margin: 0; font-size: 0.95rem; color: #545b64; line-height: 1.5;">
+    Click the button below to open the <strong>Quick create stack</strong> wizard on your AWS Console (us-east-1). Keep all default options.
+  </p>
+  <div>
+    <a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=ticket-app-stack&templateURL=https://fcaj-ticketing-templates.s3.amazonaws.com/template-cloudformation.yaml" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background-color: #ff9900; color: white !important; padding: 12px 24px; border-radius: 4px; font-weight: 700; text-decoration: none; transition: background-color 0.2s ease; font-size: 0.95rem; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+      Deploy TicketAppStack
+    </a>
+  </div>
+</div>
 
 {{% notice info %}}
 **Note on Deployment Scope**: 
-If you choose automatic deployment via CloudFormation, the system will automatically initialize the basic resources. You can **skip the manual creation steps** and only read the instructions to **Verify/Check** configurations for the following parts:
-*   **Chapter 5.3 (Network & Security Infrastructure)**: 5.3.1 (Create VPC & Subnets), 5.3.2 (Configure Routing & NAT Gateways), and a part of 5.3.3 (Secrets Manager, 2 Security Groups `ticket-app-alb-sg` and `ticket-app-ec2-worker-sg`).
-*   **Chapter 5.4 (Frontend Tier)**: 5.4.1 (Create Amazon S3 Buckets).
-*   **Chapter 5.5 (Application & Messaging Tier)**: 5.5.1 (Configure SQS FIFO & DLQ), 5.5.2 (Deploy Beanstalk).
-*   **Chapter 5.7 (Authentication & API Gateway)**: 5.7.1 (Cognito User Pool).
+If you choose automatic deployment via CloudFormation, the entire system—ranging from network infrastructure, security, databases, to CI/CD—will be automatically initialized from A to Z. You can **skip all manual creation steps** throughout the workshop and simply read the instructions from **Chapter 5.3 to Chapter 5.8** to **Verify/Check** configurations of the pre-created resources.
 {{% /notice %}}
 
-1. The browser will open the CloudFormation Console with the configuration pre-filled.
-2. On the **Specify stack details** screen, verify the parameters and click **Next**.
-3. Scroll to the bottom of the Review page, check **I acknowledge that AWS CloudFormation might create IAM resources with custom names.** and click **Submit** to start deployment.
-4. Wait for the deployment process to complete (Status changes to `CREATE_COMPLETE`).
+1. The browser will open the **Quick create stack** page on the CloudFormation Console with the Template URL pre-filled.
+2. Verify that the **Stack name** is set to `ticket-app-stack`.
+3. Scroll down to the **Parameters** section and configure the parameters (you must change the email fields to your own information):
+   * **EnvironmentName**: Keep the default `ticketing`.
+   * **DBMasterUsername** & **DBName**: Keep the default `postgres` & `ticketing_db`.
+   * **OpsNotificationEmail**: Change to your personal email address (used to receive system ops alerts).
+   * **UserNotificationEmail**: Change to your personal email address (used to test receiving ticket booking confirmation emails).
+   * **MailFrom**: Change to your personal email address (the sender address, which will be verified and configured with Amazon SES in later steps).
+   * Other parameters (such as `SmtpUsername`, `SmtpPassword`, `MailFromName`, `ReservationTimeoutMinutes`...): Can be kept as default.
+4. Once configured, check the box **I acknowledge that AWS CloudFormation might create IAM resources with custom names.** in the Capabilities section at the bottom.
+5. Click the **Create stack** button to start the deployment.
+6. Wait for the initialization process to complete (the Stack status will change to `CREATE_COMPLETE`).
 
-After the CloudFormation Stack deploys successfully, most of your basic infrastructure is ready! In the following chapters, if you choose **Option A**, you only need to read the instructions to **verify configurations** for automatically created resources, but you **must manually perform** the following configuration and deployment steps:
-
-*   **Section 5.3.3 (Security)**: Create the remaining 3 Security Groups (`ticket-app-rds-proxy-sg`, `ticket-app-rds-instance-sg`, `ticket-app-redis-sg`).
-*   **Section 5.4.2 (CloudFront)**: Configure CloudFront Distribution & WAF Security.
-*   **Section 5.4.3 (Deploy)**: Deploy Frontend code to S3.
-*   **Section 5.5.3 (SNS)**: SNS Notifications & DLQ Monitoring.
-*   **Section 5.5.4 (SES)**: Configure Amazon SES (Email) & SMTP Credentials.
-*   **Section 5.6.1 (RDS)**: Create RDS PostgreSQL Database & RDS Proxy.
-*   **Section 5.6.2 (Redis)**: Configure ElastiCache Redis.
-*   **Section 5.7.2 (ApiGateway)**: Create API Gateway & configure Cognito Authorizer, Routes, and CORS.
-*   **Chapter 5.8 (CI/CD)**: Create CodeCommit, CodeBuild, CodePipeline & push source code to trigger CI/CD.
-*   **Chapter 5.9 (Test)**: Test & Validate the system.
+After the CloudFormation Stack deploys successfully, your entire system infrastructure is fully initialized from A to Z! In the following chapters (from **5.3** to **5.8**), if you choose **Option A**, you only need to read the instructions to **verify configurations** for automatically created resources without performing any manual configuration steps. You can proceed directly to **Chapter 5.9 (Test)** to start testing and validating the system.

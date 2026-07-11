@@ -151,6 +151,10 @@ Bảng tính chi phí chi tiết của hệ thống dựa trên công cụ ướ
 | 9 | CloudWatch & Secrets Manager & SES | Lưu trữ logs, 1 secret, 5000 emails/tháng | ~ $20.99 |
 | **Tổng** | **Ước tính chi phí hàng tháng** | | **~ $293.47** |
 
+{{% notice note %}}
+**Khuyến nghị cấu hình cho Môi trường Thực tế:** Để đảm bảo hiệu năng ổn định dưới tải lượng truy cập đồng thời cao (high concurrency) và tránh các lỗi cạn kiệt tài nguyên (CPU/RAM), các dịch vụ tính toán và dữ liệu cốt lõi bao gồm EC2 Beanstalk, RDS PostgreSQL và ElastiCache Redis **bắt buộc phải sử dụng cấu hình instance size từ dòng `medium` trở lên** (ví dụ: `t3.medium`, `db.t3.medium`, `cache.t3.medium`). Việc sử dụng cấu hình `micro` hoặc `small` cho môi trường production rất dễ gây ra tình trạng nghẽn cổ chai hoặc sập dịch vụ khi lượng truy cập đột biến.
+{{% /notice %}}
+
 ---
 
 ### 7. Đánh giá rủi ro

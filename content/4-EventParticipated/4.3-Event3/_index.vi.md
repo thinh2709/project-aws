@@ -16,7 +16,7 @@ pre: " <b> 4.3. </b> "
 
 ### Danh Sách Diễn Giả
 
-- **Anh Trọng H. Trương** (DevOps Engineer @ Endava Vietnam): “What does a DevOps Engineer really do?”
+- **Anh Trọng H. Trương** (DevOps Engineer @ Endava Việt Nam): “What does a DevOps Engineer really do?”
 - **Anh Đạt Phạm** (Data Analytics Engineer) & **Anh Cường Nguyễn** (Process Engineer): “Câu chuyện thực tế đến văn hóa tại tập đoàn đa quốc gia”
 - **Anh Danh Hoàng Hiếu Nghị** (AI Engineer): “From First Cloud AI Journey to AWS Partner”
 - **Đinh Trung Kiên & Nguyễn Minh Thọ**: “A scalable URL shortening service on AWS”

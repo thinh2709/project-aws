@@ -16,7 +16,7 @@ pre: " <b> 4.3. </b> "
 
 ### List of Speakers
 
-- **Mr. Trong H. Truong** (DevOps Engineer @ Endava Vietnam): “What does a DevOps Engineer really do?”
+- **Mr. Trong H. Truong** (DevOps Engineer @ Endava Viet Nam): “What does a DevOps Engineer really do?”
 - **Mr. Dat Pham** (Data Analytics Engineer) & **Mr. Cuong Nguyen** (Process Engineer): “Real stories and culture at multinational corporations”
 - **Mr. Danh Hoang Hieu Nghi** (AI Engineer): “From First Cloud AI Journey to AWS Partner”
 - **Dinh Trung Kien & Nguyen Minh Tho**: “A scalable URL shortening service on AWS”

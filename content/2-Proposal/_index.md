@@ -150,6 +150,10 @@ This estimate is based on the [AWS Pricing Calculator](https://calculator.aws/#/
 | 9 | CloudWatch & Secrets Manager & SES | Log storage, 1 secret, 5000 emails/month | ~ $20.99 |
 | **Total** | **Estimated Monthly Total** | | **~ $293.47** |
 
+{{% notice note %}}
+**Production Instance Configuration Recommendation:** To ensure reliable and stable performance under high concurrency and prevent resource starvation (CPU/RAM exhaustion), core compute and database services including EC2 Beanstalk, RDS PostgreSQL, and ElastiCache Redis **must utilize instance types of `medium` size or higher** (e.g., `t3.medium`, `db.t3.medium`, `cache.t3.medium`). Avoid using `micro` or `small` instances in production environments as they are highly susceptible to CPU throttling and memory exhaustion under traffic spikes.
+{{% /notice %}}
+
 ---
 
 ### 7. Risk Assessment

@@ -131,10 +131,16 @@ Delete resources in the following order from top to bottom:
 
 If you deployed the core infrastructure using the CloudFormation template file in Chapter 5.2:
 
+{{% notice warning %}}
+**Important Note Before Deleting the Stack:**
+Before clicking delete on the CloudFormation Stack, you **must** access the [Amazon S3 Console](https://s3.console.aws.amazon.com/s3/home?region=us-east-1#) and **Empty** all S3 Buckets created by the stack (including the Frontend Bucket, Assets Bucket, and CodePipeline Artifacts Bucket).
+If these buckets still contain data (deployed code files, artifacts, etc.), CloudFormation will not be able to delete the buckets, causing the stack deletion process to fail with a `DELETE_FAILED` error.
+{{% /notice %}}
+
 1. Open the [AWS CloudFormation console](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks).
 2. Select your Stack (e.g., `ticket-app-stack`).
 3. Click **Delete** on the toolbar at the top.
 4. Confirm **Delete stack**.
 ![Delete CloudFormation](/images/5-Workshop/5.10-Cleanup/cfn_1.jpg)
 
-5. The system will automatically release all network and server resources (VPC, Subnets, NAT Gateways, Beanstalk, RDS, Redis, S3, Cognito...) safely and cleanly without requiring manual cleanup steps.
+5. The system will automatically release all resources from A to Z (VPC, Subnets, Beanstalk, RDS, Redis, S3, Cognito, API Gateway, CloudFront, CodePipeline...) safely and cleanly without requiring manual cleanup steps.

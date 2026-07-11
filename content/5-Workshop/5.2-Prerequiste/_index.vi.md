@@ -303,8 +303,8 @@ cd Project-FCAJ
 Trong workshop này, bạn có thể lựa chọn 1 trong 2 phương thức sau để xây dựng cơ sở hạ tầng mạng và máy chủ:
 
 *   **Lựa chọn A (Khuyên dùng - Nhanh chóng): Triển khai tự động bằng AWS CloudFormation**
-    *   Hạ tầng sẽ được khởi tạo hoàn toàn tự động.
-    *   Các chương từ **5.3 đến 5.7** sẽ đóng vai trò là hướng dẫn để bạn **Kiểm tra và Xác thực** cấu hình tài nguyên đã được tạo thay vì phải tự tạo lại.
+    *   Toàn bộ hạ tầng của hệ thống sẽ được khởi tạo hoàn toàn tự động từ A đến Z.
+    *   Tất cả các chương từ **5.3 đến 5.8** sẽ đóng vai trò là hướng dẫn để bạn **Kiểm tra và Xác thực** cấu hình tài nguyên đã được tạo tự động thay vì phải tự cấu hình thủ công.
 *   **Lựa chọn B: Tự tay cấu hình thủ công từng bước (Manual)**
     *   Bạn sẽ **bỏ qua** bước 4 (chạy CloudFormation) dưới đây.
     *   Bắt đầu từ chương **5.3**, bạn sẽ tự tay làm theo từng bước hướng dẫn trên AWS Console để tự xây dựng hệ thống từ con số 0.
@@ -313,31 +313,44 @@ Trong workshop này, bạn có thể lựa chọn 1 trong 2 phương thức sau 
 
 #### Hướng dẫn cho Lựa chọn A: Triển khai tự động bằng CloudFormation
 
-Để chuẩn bị cho môi trường làm workshop, chúng ta deploy CloudFormation template sau (click link): [TicketAppStack](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=ticket-app-stack&templateURL=https://fcaj-ticketing-templates.s3.amazonaws.com/template-cloudformation.yaml). Để nguyên các lựa chọn mặc định.
+Để chuẩn bị cho môi trường làm workshop, chúng ta tiến hành deploy CloudFormation template:
+
+<div style="background-color: #f8f9fa; border: 1px solid #e9ecef; border-left: 5px solid #ff9900; padding: 20px; border-radius: 8px; margin: 20px 0; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+  <div style="font-weight: 700; color: #232f3e; font-size: 1.1rem; line-height: 24px;">
+    <img src="https://img.icons8.com/color/48/amazon-web-services.png" style="width: 24px !important; height: 24px !important; margin: 0 8px 0 0 !important; display: inline-block !important; vertical-align: middle !important;" alt="AWS"/>
+    <span style="vertical-align: middle !important;">Khởi tạo Nhanh với AWS CloudFormation</span>
+    <span style="font-size: 0.8rem; background-color: #e6f4ea; color: #137333; padding: 4px 8px; border-radius: 4px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; vertical-align: middle !important; margin-left: 10px; border: none;">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      Đã kiểm thử & xác thực chạy thực tế
+    </span>
+  </div>
+  <p style="margin: 0; font-size: 0.95rem; color: #545b64; line-height: 1.5;">
+    Click vào nút bên dưới để mở giao diện <strong>Quick create stack</strong> trên AWS Console (us-east-1). Hãy giữ nguyên các lựa chọn mặc định.
+  </p>
+  <div>
+    <a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=ticket-app-stack&templateURL=https://fcaj-ticketing-templates.s3.amazonaws.com/template-cloudformation.yaml" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background-color: #ff9900; color: white !important; padding: 12px 24px; border-radius: 4px; font-weight: 700; text-decoration: none; transition: background-color 0.2s ease; font-size: 0.95rem; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+      Deploy TicketAppStack
+    </a>
+  </div>
+</div>
 
 {{% notice info %}}
 **Lưu ý về phạm vi triển khai**: 
-Nếu chọn triển khai tự động bằng CloudFormation, hệ thống sẽ tự động khởi tạo sẵn các tài nguyên cơ bản. Bạn có thể **bỏ qua bước tạo thủ công** và chỉ cần đọc hướng dẫn để **Kiểm tra/Xác minh** cấu hình đối với các phần sau:
-*   **Chương 5.3 (Hạ tầng Mạng & Bảo mật)**: 5.3.1 (Khởi tạo VPC & Subnets), 5.3.2 (Định tuyến & NAT Gateways), và một phần của 5.3.3 (Secrets Manager, 2 Security Groups `ticket-app-alb-sg` và `ticket-app-ec2-worker-sg`).
-*   **Chương 5.4 (Tầng Giao diện)**: 5.4.1 (Khởi tạo Amazon S3 Buckets).
-*   **Chương 5.5 (Tầng Application & Messaging)**: 5.5.1 (Cấu hình SQS FIFO & DLQ), 5.5.2 (Triển khai Beanstalk).
-*   **Chương 5.7 (Xác thực & Cổng API)**: 5.7.1 (Cognito User Pool).
+Nếu chọn triển khai tự động bằng CloudFormation, toàn bộ hệ thống từ cơ sở hạ tầng mạng, bảo mật, cơ sở dữ liệu đến CI/CD sẽ được tự động khởi tạo từ A đến Z. Bạn có thể **bỏ qua tất cả các bước tạo thủ công** trong toàn bộ workshop này và chỉ cần đọc hướng dẫn từ **Chương 5.3 đến Chương 5.8** để **Kiểm tra/Xác minh** cấu hình của các tài nguyên đã được tạo sẵn.
 {{% /notice %}}
 
-1. Trình duyệt sẽ mở bảng điều khiển CloudFormation Console và tự động điền sẵn các cấu hình.
-2. Tại màn hình **Specify stack details**, kiểm tra các tham số rồi click **Next**.
-3. Cuộn xuống cuối trang Review, tích chọn **I acknowledge that AWS CloudFormation might create IAM resources with custom names.** và click **Submit** để bắt đầu triển khai.
-4. Đợi cho đến khi quá trình khởi tạo hoàn tất (Trạng thái chuyển sang `CREATE_COMPLETE`).
+1. Trình duyệt sẽ mở trang **Quick create stack** của bảng điều khiển CloudFormation Console với Template URL đã được điền sẵn.
+2. Kiểm tra tên Stack là `ticket-app-stack` ở mục **Stack name**.
+3. Cuộn xuống phần **Parameters** để cấu hình các tham số (bắt buộc thay đổi các trường email theo thông tin của bạn):
+   * **EnvironmentName**: Để mặc định là `ticketing`.
+   * **DBMasterUsername** & **DBName**: Để mặc định là `postgres` & `ticketing_db`.
+   * **OpsNotificationEmail**: Thay đổi thành email cá nhân của bạn (dùng để nhận thông báo vận hành/cảnh báo hệ thống).
+   * **UserNotificationEmail**: Thay đổi thành email cá nhân của bạn (dùng để kiểm thử nhận email thông báo đặt vé thành công).
+   * **MailFrom**: Thay đổi thành email cá nhân của bạn (địa chỉ email gửi thông báo, sẽ được cấu hình và xác thực với Amazon SES ở bước sau).
+   * Các thông số còn lại (như `SmtpUsername`, `SmtpPassword`, `MailFromName`, `ReservationTimeoutMinutes`...): Có thể giữ nguyên giá trị mặc định.
+4. Sau khi cấu hình xong, tích chọn hộp thoại **I acknowledge that AWS CloudFormation might create IAM resources with custom names.** ở phần Capabilities dưới cùng.
+5. Click chọn nút **Create stack** để bắt đầu triển khai.
+6. Đợi cho đến khi quá trình khởi tạo hoàn tất (Trạng thái của Stack chuyển sang `CREATE_COMPLETE`).
 
-Sau khi CloudFormation Stack triển khai thành công, phần lớn hạ tầng cơ bản của bạn đã hoàn tất! Ở các chương tiếp theo, nếu đi theo **Lựa chọn A**, bạn chỉ cần đọc hướng dẫn để **xác minh cấu hình** đối với các phần đã được tạo tự động, đồng thời **bắt buộc phải tự tay thực hiện** các bước cấu hình và triển khai sau:
-
-*   **Bài 5.3.3 (Bảo mật)**: Tạo 3 Security Groups còn lại (`ticket-app-rds-proxy-sg`, `ticket-app-rds-instance-sg`, `ticket-app-redis-sg`).
-*   **Bài 5.4.2 (CloudFront)**: Cấu hình CloudFront Distribution & Bảo mật WAF.
-*   **Bài 5.4.3 (Deploy)**: Triển khai code Frontend lên S3.
-*   **Bài 5.5.3 (SNS)**: Thông báo SNS & Giám sát DLQ.
-*   **Bài 5.5.4 (SES)**: Cấu hình Amazon SES (Email) & SMTP Credentials.
-*   **Bài 5.6.1 (RDS)**: Tạo Database RDS PostgreSQL & RDS Proxy.
-*   **Bài 5.6.2 (Redis)**: Cấu hình ElastiCache Redis.
-*   **Bài 5.7.2 (ApiGateway)**: Tạo API Gateway & cấu hình Cognito Authorizer, Routes, CORS.
-*   **Chương 5.8 (CI/CD)**: Tạo CodeCommit, CodeBuild, CodePipeline & đẩy mã nguồn để kích hoạt CI/CD.
-*   **Chương 5.9 (Test)**: Kiểm thử & Xác thực hệ thống.
+Sau khi CloudFormation Stack triển khai thành công, toàn bộ hạ tầng hệ thống của bạn đã được khởi tạo hoàn tất từ A đến Z! Ở các chương tiếp theo (từ **5.3** đến **5.8**), nếu đi theo **Lựa chọn A**, bạn chỉ cần đọc hướng dẫn để **kiểm tra và xác minh cấu hình** tài nguyên của mình đã được tạo tự động mà không cần thực hiện thêm bất kỳ thao tác cấu hình thủ công nào. Bạn có thể tiến thẳng đến **Chương 5.9 (Test)** để bắt đầu kiểm thử và xác thực hệ thống hoạt động.

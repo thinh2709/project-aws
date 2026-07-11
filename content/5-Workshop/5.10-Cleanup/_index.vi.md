@@ -131,10 +131,16 @@ Thực hiện xóa các tài nguyên theo trình tự từ trên xuống dưới
 
 Nếu bạn deploy toàn bộ hạ tầng thông qua file template CloudFormation ở chương 5.2:
 
+{{% notice warning %}}
+**Lưu ý quan trọng trước khi xóa Stack:**
+Trước khi bấm xóa Stack CloudFormation, bạn **bắt buộc** phải truy cập vào [Amazon S3 Console](https://s3.console.aws.amazon.com/s3/home?region=us-east-1#) và thực hiện **Empty (Làm trống)** tất cả các S3 Buckets được tạo bởi hệ thống (bao gồm Frontend Bucket, Assets Bucket và CodePipeline Artifacts Bucket). 
+Nếu các bucket này còn chứa dữ liệu (tệp tin code đã deploy, artifacts,...), CloudFormation sẽ không thể xóa bucket và quá trình xóa stack sẽ bị báo lỗi `DELETE_FAILED`.
+{{% /notice %}}
+
 1. Mở [AWS CloudFormation console](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks).
 2. Chọn Stack của bạn (ví dụ: `ticket-app-stack`).
 3. Click **Delete** ở thanh công cụ phía trên.
 4. Xác nhận **Delete stack**.
 ![Delete CloudFormation](/images/5-Workshop/5.10-Cleanup/cfn_1.jpg)
 
-5. Hệ thống sẽ tự động giải phóng toàn bộ tài nguyên mạng và máy chủ (VPC, Subnets, NAT Gateways, Beanstalk, RDS, Redis, S3, Cognito...) một cách an toàn và sạch sẽ mà không cần phải thực hiện dọn dẹp thủ công từng bước.
+5. Hệ thống sẽ tự động giải phóng toàn bộ tài nguyên từ A đến Z (VPC, Subnets, Beanstalk, RDS, Redis, S3, Cognito, API Gateway, CloudFront, CodePipeline...) một cách an toàn và sạch sẽ mà không cần phải thực hiện dọn dẹp thủ công từng bước.
